@@ -47,10 +47,10 @@ run_analysis <- function (wrkSpc = NULL, fileURL = NULL, outputDir = NULL){
   
   # Data Cleaning
   finalResults <- rbind(serTest, serTrain)
+  rm(serTest, serTrain)
   finalResults$Exercise_ID <- NULL
   summarizedResults <-
     finalResults %>% group_by(Subject_ID, Exercise_Description) %>% summarise_each(funs(mean))
-  rm(serTest, serTrain)
   
   # Output
   write.table(summarizedResults, file = paste(outputDir,"summarized_results.txt",sep = "/"), row.names = FALSE)
@@ -61,4 +61,5 @@ run_analysis <- function (wrkSpc = NULL, fileURL = NULL, outputDir = NULL){
   rm(summarizedResults)
   
   setwd(temp_work)
+  rm(temp_work)
 }
